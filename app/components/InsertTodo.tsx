@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import { createClient } from '@/app/utils/supabase/client'
-import {Todo} from "@/app/utils/types";
+import type { Todo } from '@/app/utils/types'
+import '../css/InsertTodo.css'
 
 export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void }) {
     const [name, setName] = useState('')
@@ -19,7 +20,7 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
         setError(null)
         setSuccess(false)
 
-        const {data, error } = await supabase
+        const { data, error } = await supabase
             .from('todos')
             .insert([{ name, text }])
             .select()
@@ -27,20 +28,19 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
 
         setLoading(false)
 
-
         if (error) {
             setError(error.message)
             return
         }
-        addTodo(data)
 
+        addTodo(data)
         setSuccess(true)
         setName('')
         setText('')
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="insert-todo">
             <div>
                 <label htmlFor="name">Name</label>
                 <input
@@ -66,8 +66,8 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
                 {loading ? 'Adding...' : 'Add Todo'}
             </button>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>Todo added!</p>}
+            {error && <p className="error">{error}</p>}
+            {success && <p className="success">Todo added!</p>}
         </form>
     )
 }

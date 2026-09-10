@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/app/utils/supabase/client'
-import InsertTodo from "@/app/components/InsertTodo";
-import TodoItem from "@/app/components/TodoItem";
-
-import type {Todo} from '@/app/utils/types'
+import InsertTodo from '@/app/components/InsertTodo'
+import TodoItem from '@/app/components/TodoItem'
+import type { Todo } from '@/app/utils/types'
+import '../css/TodosList.css'
 
 export default function TodosList() {
     const [todos, setTodos] = useState<Todo[]>([])
@@ -20,26 +20,53 @@ export default function TodosList() {
             if (error) setError(error.message)
             else setTodos(data ?? [])
             setLoading(false)
-            console.log(data,error)
         }
 
         fetchTodos()
     }, [])
 
-    const addTodo = (todo:Todo) => {
+    const addTodo = (todo: Todo) => {
         setTodos((prev) => [...prev, todo])
     }
+
+    const updateTodo = async (updated: Todo) => {
+        const supabase = createClient()
+        const { data, error } = await supabase
+            .from('todos')
+            .update({ name: updated.name, text: updated.text })
+            .eq('id', updated.id)
+            .select()
+            .single()
+
+        if (error) {
+            setError(error.message)
+            return
+        }
+        setTodos((prev) => prev.map((t) => (t.id === data.id ? data : t)))
+    }
+
+    const deleteTodo = async (id: Todo['id']) => {
+        const supabase = createClient()
+        const { error } = await supabase.from('todos').delete().eq('id', id)
+
+        if (error) {
+            setError(error.message)
+            return
+        }
+        setTodos((prev) => prev.filter((t) => t.id !== id))
+    }
+
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error: {error}</p>
 
     return (
-        <div>
-            <InsertTodo addTodo={addTodo}/>
-        <ul>
-            {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
-            ))}
-        </ul>
+        <div className="todos-list">
+            <InsertTodo addTodo={addTodo} />
+            <ul>
+                {todos.map((todo) => (
+                   <li key={todo.id}> <TodoItem  todo={todo} onUpdate={updateTodo} onDelete={deleteTodo} /></li>
+                ))}
+            </ul>
         </div>
     )
 }
