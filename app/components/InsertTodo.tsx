@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { createClient } from '@/app/utils/supabase/client'
+import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import type { Todo } from '@/app/utils/types'
 import '../css/InsertTodo.css'
 
@@ -12,7 +12,8 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
 
-    const supabase = createClient()
+    const supabase = useClerkSupabaseClient()
+
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault()

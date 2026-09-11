@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/app/utils/supabase/client'
+import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import InsertTodo from '@/app/components/InsertTodo'
 import TodoItem from '@/app/components/TodoItem'
 import type { Todo } from '@/app/utils/types'
@@ -11,9 +11,9 @@ export default function TodosList() {
     const [todos, setTodos] = useState<Todo[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const supabase = useClerkSupabaseClient()
 
     useEffect(() => {
-        const supabase = createClient()
 
         async function fetchTodos() {
             const { data, error } = await supabase.from('todos').select('*')
@@ -30,7 +30,6 @@ export default function TodosList() {
     }
 
     const updateTodo = async (updated: Todo) => {
-        const supabase = createClient()
         const { data, error } = await supabase
             .from('todos')
             .update({ name: updated.name, text: updated.text })
@@ -46,7 +45,6 @@ export default function TodosList() {
     }
 
     const deleteTodo = async (id: Todo['id']) => {
-        const supabase = createClient()
         const { error } = await supabase.from('todos').delete().eq('id', id)
 
         if (error) {
