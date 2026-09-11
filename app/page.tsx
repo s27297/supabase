@@ -1,6 +1,5 @@
 'use client'
 
-import TodosList from "@/app/todo-list/TodosList";
 import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
