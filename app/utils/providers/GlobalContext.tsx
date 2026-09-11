@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, ReactNode } from 'react'
-import { useUser } from '@clerk/nextjs'
+import {useAuth, useUser} from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 // import type { UserResource } from '@clerk/types'
 
@@ -14,7 +14,7 @@ type GlobalContextType = {
 export const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
 
 export function GlobalProvider({ children }: { children: ReactNode }) {
-    const { isLoaded, isSignedIn } = useUser()
+    const { isLoaded, isSignedIn } = useAuth()
 
     return (
         <GlobalContext.Provider value={{ isLoaded, isSignedIn }}>

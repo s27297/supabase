@@ -16,6 +16,8 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
 
 
     async function handleSubmit(e: React.FormEvent) {
+        if(!supabase)
+            return
         e.preventDefault()
         setLoading(true)
         setError(null)

@@ -6,16 +6,20 @@ import InsertTodo from '@/app/components/InsertTodo'
 import TodoItem from '@/app/components/TodoItem'
 import type { Todo } from '@/app/utils/types'
 import '../css/TodosList.css'
+import {useAuth} from "@clerk/nextjs";
 
 export default function TodosList() {
     const [todos, setTodos] = useState<Todo[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const supabase = useClerkSupabaseClient()
-
+    const {isSignedIn } = useAuth()
+    console.log(todos,error)
     useEffect(() => {
 
         async function fetchTodos() {
+            if(!isSignedIn || !supabase)
+                return;
             const { data, error } = await supabase.from('todos').select('*')
             if (error) setError(error.message)
             else setTodos(data ?? [])
@@ -23,13 +27,15 @@ export default function TodosList() {
         }
 
         fetchTodos()
-    }, [])
+    }, [supabase,isSignedIn])
 
     const addTodo = (todo: Todo) => {
         setTodos((prev) => [...prev, todo])
     }
 
     const updateTodo = async (updated: Todo) => {
+        if(!supabase)
+            return
         const { data, error } = await supabase
             .from('todos')
             .update({ name: updated.name, text: updated.text })
@@ -45,6 +51,8 @@ export default function TodosList() {
     }
 
     const deleteTodo = async (id: Todo['id']) => {
+        if(!supabase)
+            return
         const { error } = await supabase.from('todos').delete().eq('id', id)
 
         if (error) {
