@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import type { Todo } from '@/app/utils/types'
-import '../css/InsertTodo.css'
+import '../../css/todos/InsertTodo.css'
 
 export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void }) {
     const [name, setName] = useState('')

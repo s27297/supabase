@@ -1,25 +1,26 @@
 import { ClerkProvider, Show, SignInButton, UserButton } from '@clerk/nextjs'
 import './globals.css'
-import {GlobalProvider} from "@/app/utils/providers/GlobalContext";
+import Navbar from '@/app/components/Navbar'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-      <ClerkProvider>
-          <GlobalProvider>
-        <html lang="en">
-        <body>
-        <header style={{ display: 'flex', justifyContent: 'flex-end', padding: 16, gap: 12 }}>
-          <Show when="signed-out">
-            <SignInButton />
-          </Show>
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
-        </header>
-        {children}
-        </body>
-        </html>
-          </GlobalProvider>
-      </ClerkProvider>
-  )
+    return (
+                <html lang="en">
+                <body>
+                <ClerkProvider>
+                <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 16px' }}>
+                    <Navbar />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 16 }}>
+                        <Show when="signed-out">
+                            <SignInButton />
+                        </Show>
+                        <Show when="signed-in">
+                            <UserButton />
+                        </Show>
+                    </div>
+                </header>
+                {children}
+                </ClerkProvider>
+                </body>
+                </html>
+    )
 }
