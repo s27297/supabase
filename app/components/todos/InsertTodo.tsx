@@ -40,6 +40,15 @@ export default function InsertTodo({ addTodo }: { addTodo: (todo: Todo) => void 
         setSuccess(true)
         setName('')
         setText('')
+        console.log("send email")
+        // fire-and-forget — don't block the UI on email sending
+        fetch('/api/send-todo-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: data.name }),
+        }).catch((err) => {
+            console.error('Failed to send confirmation email:', err)
+        })
     }
 
     return (

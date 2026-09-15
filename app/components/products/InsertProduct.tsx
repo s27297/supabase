@@ -41,6 +41,7 @@ export default function InsertProduct({ addProduct }: { addProduct: (product: Pr
         setName('')
         setDescription('')
         setPrice('')
+
     }
 
     return (
