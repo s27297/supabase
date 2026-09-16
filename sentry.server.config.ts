@@ -4,6 +4,8 @@
 
 import * as Sentry from "@sentry/nextjs";
 
+process.setMaxListeners(20)
+
 Sentry.init({
   dsn: "https://2821fc00f72954bc43a192f205d8f167@o4512090333249536.ingest.de.sentry.io/4512090352123984",
 

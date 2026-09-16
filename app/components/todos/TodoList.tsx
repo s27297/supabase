@@ -5,6 +5,7 @@ import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import InsertTodo from '@/app/components/todos/InsertTodo'
 import TodoItem from '@/app/components/todos/TodoItem'
 import type { Todo } from '@/app/utils/types'
+import posthog from 'posthog-js'
 import '../../css/todos/TodosList.css'
 import {useAuth} from "@clerk/nextjs";
 
@@ -47,6 +48,9 @@ export default function TodosList() {
             return
         }
         setTodos((prev) => prev.map((t) => (t.id === data.id ? data : t)))
+        if (process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+            posthog.capture('todo_updated')
+        }
     }
 
     const deleteTodo = async (id: Todo['id']) => {
@@ -59,6 +63,9 @@ export default function TodosList() {
             return
         }
         setTodos((prev) => prev.filter((t) => t.id !== id))
+        if (process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+            posthog.capture('todo_deleted')
+        }
     }
 
     if (loading) return <p>Loading...</p>

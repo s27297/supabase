@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import type { Product } from '@/app/utils/types'
+import posthog from 'posthog-js'
 import '../../css/products/InsertProducts.css'
 
 export default function InsertProduct({ addProduct }: { addProduct: (product: Product) => void }) {
@@ -37,6 +38,12 @@ export default function InsertProduct({ addProduct }: { addProduct: (product: Pr
         }
 
         addProduct(data)
+        if (process.env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+            posthog.capture('product_created', {
+                price: data.price,
+                currency: 'PLN',
+            })
+        }
         setSuccess(true)
         setName('')
         setDescription('')
