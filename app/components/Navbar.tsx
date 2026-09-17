@@ -7,6 +7,7 @@ import '../css/Navbar.css'
 const links = [
     { href: '/todo-list', label: 'Todos' },
     { href: '/products', label: 'Products' },
+    { href: '/profile', label: 'Profile' },
 ]
 
 export default function Navbar() {

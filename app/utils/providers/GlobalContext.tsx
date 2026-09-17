@@ -3,12 +3,10 @@
 import { createContext, useContext, useEffect, useRef, ReactNode } from 'react'
 import {useAuth, useUser} from '@clerk/nextjs'
 import posthog from 'posthog-js'
-// import type { UserResource } from '@clerk/types'
 
 type GlobalContextType = {
     isLoaded: boolean
     isSignedIn: boolean | undefined
-    // user: UserResource | null | undefined
 }
 
 export const GlobalContext = createContext<GlobalContextType | undefined>(undefined)
