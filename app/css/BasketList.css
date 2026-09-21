@@ -1,0 +1,93 @@
+.basket-list {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.basket-list h2 {
+    margin-bottom: 20px;
+}
+
+.basket-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.basket-item .info {
+    flex: 1;
+}
+
+.basket-item .info h4 {
+    margin: 0 0 2px;
+    font-size: 15px;
+}
+
+.basket-item .info span {
+    font-size: 13px;
+    color: #666;
+}
+
+.basket-item .quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.basket-item .quantity button {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #ddd;
+    background: #f9fafb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.basket-item .subtotal {
+    min-width: 80px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.basket-item .remove {
+    border: none;
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.footer .total {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.footer .buy {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #6366f1;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}

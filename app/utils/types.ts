@@ -11,3 +11,10 @@ export type Product = {
     description: string
     price: number
 }
+
+export type BasketItem = {
+    id: number
+    product_id: number
+    quantity: number
+    products: Product   // joined product data
+}

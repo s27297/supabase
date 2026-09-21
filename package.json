@@ -12,14 +12,18 @@
     "@clerk/nextjs": "^7.9.2",
     "@clerk/types": "^4.101.26",
     "@sentry/nextjs": "^10.74.0",
+    "@stripe/stripe-js": "^9.16.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
+    "@upstash/ratelimit": "^2.1.0",
+    "@upstash/redis": "^1.38.4",
     "jsonwebtoken": "^9.0.3",
     "next": "^16.3.5",
     "posthog-js": "^1.433.5",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "resend": "^6.28.0"
+    "resend": "^6.28.0",
+    "stripe": "^22.6.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -1,11 +1,19 @@
+// app/api/productbridge-token/route.ts
 import { NextResponse } from 'next/server'
 import { auth, currentUser } from '@clerk/nextjs/server'
 import jwt from 'jsonwebtoken'
+import { apiRateLimit } from '@/app/utils/redis/rateLimit'
 
 export async function GET() {
     const { userId } = await auth()
+
     if (!userId) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const { success } = await apiRateLimit.limit(userId)
+    if (!success) {
+        return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
     }
 
     const user = await currentUser()
@@ -19,5 +27,6 @@ export async function GET() {
         process.env.PRODUCTBRIDGE_WIDGET_SECRET!,
         { expiresIn: '1h' }
     )
+
     return NextResponse.json({ token })
 }

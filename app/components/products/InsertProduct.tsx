@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import type { Product } from '@/app/utils/types'
 import posthog from 'posthog-js'
-import '../../css/products/InsertProducts.css'
+import '@/app/css/products/InsertProducts.css'
 
 export default function InsertProduct({ addProduct }: { addProduct: (product: Product) => void }) {
     const [name, setName] = useState('')

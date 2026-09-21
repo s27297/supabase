@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { auth, currentUser } from '@clerk/nextjs/server'
+import {apiRateLimit} from "@/app/utils/redis/rateLimit";
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -20,7 +21,21 @@ export async function POST(req: Request) {
     if (!userId) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+    const { success, limit, remaining, reset } = await apiRateLimit.limit(userId)
 
+    if (!success) {
+        return NextResponse.json(
+            { error: 'Too many requests. Please slow down.' },
+            {
+                status: 429,
+                headers: {
+                    'X-RateLimit-Limit': limit.toString(),
+                    'X-RateLimit-Remaining': remaining.toString(),
+                    'X-RateLimit-Reset': reset.toString(),
+                },
+            }
+        )
+    }
     const { name } = await req.json()
 
     if (!name) {

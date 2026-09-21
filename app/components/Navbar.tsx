@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import '../css/Navbar.css'
+import '@/app/css/Navbar.css'
 
 const links = [
     { href: '/todo-list', label: 'Todos' },
     { href: '/products', label: 'Products' },
+    { href: '/basket', label: 'Basket' },
     { href: '/profile', label: 'Profile' },
 ]
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { Todo } from '@/app/utils/types'
-import '../../css/todos/TodoItem.css'
+import '@/app/css/todos/TodoItem.css'
 
 type TodoItemProps = {
     todo: Todo

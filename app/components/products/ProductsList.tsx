@@ -5,7 +5,7 @@ import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import InsertProduct from './InsertProduct'
 import ProductItem from './ProductsItem'
 import type { Product } from '@/app/utils/types'
-import '../../css/products/ProductsList.css'
+import '@/app/css/products/ProductsList.css'
 
 export default function ProductsList() {
     const [products, setProducts] = useState<Product[]>([])

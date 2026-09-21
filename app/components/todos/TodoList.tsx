@@ -6,7 +6,7 @@ import InsertTodo from '@/app/components/todos/InsertTodo'
 import TodoItem from '@/app/components/todos/TodoItem'
 import type { Todo } from '@/app/utils/types'
 import posthog from 'posthog-js'
-import '../../css/todos/TodosList.css'
+import '@/app/css/todos/TodosList.css'
 import {useAuth} from "@clerk/nextjs";
 
 export default function TodosList() {
