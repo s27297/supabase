@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useClerkSupabaseClient } from '@/app/utils/supabase/client'
 import type { Product } from '@/app/utils/types'
-import '@/app/css/products/ProductItem.css'
+import '@/app/css/products/ProductsItem.css'
 
 export default function ProductItem({ product }: { product: Product }) {
     const [adding, setAdding] = useState(false)
